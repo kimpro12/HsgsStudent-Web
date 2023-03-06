@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>8 Inputs Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <h2>Hsgs Student Management</h1>
+  <form>
+    <label for="input1">Họ:</label>
+    <input type="text" id="input1" name="input1" placeholder="Vd: Nguyễn">
+
+    <label for="input2">Tên giữa:</label>
+    <input type="text" id="input2" name="input2" placeholder="Vd: Văn hoặc Văn Trung">
+
+    <label for="input3">Tên:</label>
+    <input type="text" id="input3" name="input3" placeholder="Vd: An">
+
+    <label for="input4">Lớp:</label>
+    <input type="text" id="input4" name="input4" placeholder="Vd: 10A3 Lý">
+
+    <label for="input5">Ngày sinh:</label>
+    <input type="text" id="input5" name="input5" placeholder="Vd: 09">
+
+    <label for="input6">Tháng sinh:</label>
+    <input type="text" id="input6" name="input6" placeholder="Vd: 06">
+
+    <label for="input7">Năm sinh:</label>
+    <input type="text" id="input7" name="input7" placeholder="Vd: 2006">
+
+    <label for="input8">Hệ chuyên:</label>
+    <input type="text" id="input8" name="input8" placeholder="Toán, Lý, Hóa, Sinh, Tin, CLC">
+    <button onclick="createList()" type ="button">Tìm kiếm</button>
+    <button onclick="createListBirth()" type ="button">Xem hôm nay ai sinh nhật</button>
+    <h1></h1>
+    <h4 class="result"></h4>
+    <ol id="list"></ol>
+  </form>
+  <h6>Made by FIP</h5>
+</body>
+<script src="script.js"></script>
+
+</html>
