@@ -16603,6 +16603,7 @@ hechuyen
 fullborn
 fullname
 */
+// Lấy các chữ từ input rồi truyền tham số vô hàm Data
 function createList() {
   var list = document.getElementById("list");
   list.innerHTML = "";
@@ -16630,6 +16631,7 @@ function createList() {
     list.appendChild(li);
   }
 }
+// Hàm này chạy khi người dùng click xem birthday, hàm này nguyên lí là lấy ngày, tháng hiện tại rồi truyền tham số vô hàm Data còn các tham số khác để ""
 function createListBirth() {
   var list = document.getElementById("list");
   list.innerHTML = "";
@@ -16666,15 +16668,18 @@ function createListBirth() {
   if (w.length == 0) {
     result.textContent = 'Không tìm thấy kết quả';
   }
+  // Lấy result bên trên rồi add vô list
   for (var i = 0; i < w.length; i++) {
     var li = document.createElement("li");
     var text = document.createTextNode(w[i]);
     result.textContent = "Tìm thấy " + w.length + " kết quả";
     li.appendChild(text);
+    // set margin cho các dòng chữ nhìn thoáng hơn
     li.style.margin = "17px 0";
     list.appendChild(li);
   }
 }
+// hàm sort tên người việt nam
 function sortname(names1) {
   let names = [...names1];
   let collator = new Intl.Collator("vi-VN");
@@ -16704,6 +16709,7 @@ function sortname(names1) {
 
   return names;
 }
+// Sử dụng so sánh riêng vì khi so sánh == trong tiếng việt sẽ trả về false vd: Hóa != Hoá
 function customequal(str1, str2) {
   return str1.localeCompare(str2, 'vi', { sensitivity: 'base' }) === 0
 }
@@ -16717,15 +16723,21 @@ function Data(sur, mid, last, clas, day, month, year, hechuyen) {
   this.year = year;
   this.hechuyen = hechuyen;
   this.getresult = function () {
+    // Map1 chứa tên học sinh
     let map1 = new Map();
+    // Map2 chứa thông tin học sinh đấy
     let map2 = new Map();
+    // Chứa tên học sinh
     let list1 = [];
+    // Chứa thông tin học sinh
     let list2 = [];
+    // List 3 là list sẽ được trả về trong hàm
     let list3 = [];
     for (let i = 0; i < surnames.length; i++) {
       map1.set(i, fullname[i]);
       map2.set(i, ', Ngày sinh: ' + fullborn[i] + ", Lớp: " + listclass[i]);
     }
+    // Nếu các tham số được truyền vô hàm khác "" và khi nó không giống với các thông tin cho trước thì set key thành ""
     for (let i = 0; i < surnames.length; i++) {
       if ((sur != "") && !(customequal(sur.toLowerCase(), surnames[i].toLowerCase())) ||
         (mid != "") && !(customequal(mid.toLowerCase(), midnames[i].toLowerCase())) ||
@@ -16740,17 +16752,19 @@ function Data(sur, mid, last, clas, day, month, year, hechuyen) {
         map2.set(i, "");
       }
     }
+    //if value unequal "" add this value to list1
     for (let [key, value] of map1) {
       if (value !== "") {
         list1.push(value);
       }
     }
-    //if value equal "" add this value to list2
+    //if value unequal "" add this value to list2
     for (let [key, value] of map2) {
       if (value !== "") {
         list2.push(value);
       }
     }
+    // map dùng fix bug 2 ng trùng tên nhau
     let map5 = new Map();
     for (let i = 0; i < list1.length; i++) {
       let name = list1[i];
@@ -16760,7 +16774,9 @@ function Data(sur, mid, last, clas, day, month, year, hechuyen) {
       }
       map5.get(name).push(info);
     }
+    // sort tên người việt nam
     let list22 = sortname(Array.from(map5.keys()));
+    // ghép name và thông tin với nhau rồi push vô list3
     for (let name of list22) {
       for (let info of map5.get(name)) {
         list3.push("Full name: " + name + info);
