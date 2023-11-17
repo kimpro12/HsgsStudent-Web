@@ -2368,6 +2368,7 @@ for (let i = 0; i < data.length; i++) {
         t += " ";
       }
     }
+    midnames[i] = t;
   }
   lastnames[i] = idk[1];
   let born = idk[2].split("/");
@@ -2377,6 +2378,10 @@ for (let i = 0; i < data.length; i++) {
   let classes = idk[3].split(" ");
   listclass[i] = idk[3];
   listhechuyen[i] = classes[1];
+}
+
+function removeRedundantSpaces(str) {
+  return str.replace(/^\s+|\s+$/gm,'');
 }
 
 // Lấy các chữ từ input rồi truyền tham số vô hàm Data
@@ -2495,14 +2500,14 @@ function customequal(str1, str2) {
   return str1.localeCompare(str2, 'vi', { sensitivity: 'base' }) === 0
 }
 function Data(sur, mid, last, clas, day, month, year, hechuyen) {
-  this.sur = sur;
-  this.mid = mid;
-  this.last = last;
-  this.clas = clas;
-  this.day = day;
-  this.month = month;
-  this.year = year;
-  this.hechuyen = hechuyen;
+  this.sur = removeRedundantSpaces(sur);
+  this.mid = removeRedundantSpaces(mid);
+  this.last = removeRedundantSpaces(last);
+  this.clas = removeRedundantSpaces(clas);
+  this.day = removeRedundantSpaces(day);
+  this.month = removeRedundantSpaces(month);
+  this.year = removeRedundantSpaces(year);
+  this.hechuyen = removeRedundantSpaces(hechuyen);
   this.getresult = function () {
     // Map1 chứa tên học sinh
     let map1 = new Map();
@@ -2520,14 +2525,14 @@ function Data(sur, mid, last, clas, day, month, year, hechuyen) {
     }
     // Nếu các tham số được truyền vô hàm khác "" và khi nó không giống với các thông tin cho trước thì set key thành ""
     for (let i = 0; i < surnames.length; i++) {
-      if ((sur != "") && !(customequal(sur.toLowerCase(), surnames[i].toLowerCase())) ||
-        (mid != "") && !(customequal(mid.toLowerCase(), midnames[i].toLowerCase())) ||
-        (last != "") && !(customequal(last.toLowerCase(), lastnames[i].toLowerCase())) ||
-        (clas != "") && !(customequal(clas.toLowerCase(), listclass[i].toLowerCase())) ||
-        (day != "") && !(day == dayborn[i]) ||
-        (month != "") && !(month == monthborn[i]) ||
-        (year != "") && !(year == yearborn[i]) ||
-        (hechuyen != "") && !(customequal(hechuyen.toLowerCase(), listhechuyen[i].toLowerCase()))
+      if ((this.sur != "") && !(customequal(this.sur.toLowerCase(), surnames[i].toLowerCase())) ||
+        (this.mid != "") && !(customequal(this.mid.toLowerCase(), midnames[i].toLowerCase())) ||
+        (this.last != "") && !(customequal(this.last.toLowerCase(), lastnames[i].toLowerCase())) ||
+        (this.clas != "") && !(customequal(this.clas.toLowerCase(), listclass[i].toLowerCase())) ||
+        (this.day != "") && !(customequal(this.day, dayborn[i])) ||
+        (this.month != "") && !(customequal(this.month, monthborn[i])) ||
+        (this.year != "") && !(customequal(this.year, yearborn[i])) ||
+        (this.hechuyen != "") && !(customequal(this.hechuyen.toLowerCase(), listhechuyen[i].toLowerCase()))
       ) {
         map1.set(i, "");
         map2.set(i, "");
